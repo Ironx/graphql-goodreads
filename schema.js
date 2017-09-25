@@ -8,8 +8,10 @@ const {
 	GraphQLInt,
 	GraphQLString
 } = require('graphql');
+const apiKey = require('./apikey.js');
 
-const apiKey = "";
+const goodreadsKey = apiKey.goodreads;
+
 
 const BookType = new GraphQLObjectType({
 	name: 'Book',
@@ -59,7 +61,7 @@ module.exports = new GraphQLSchema({
 					id: { type: GraphQLInt}
 				},
 				resolve: (root, args) => fetch(
-					`https://www.goodreads.com/author/show.xml?id=${args.id}&key=${apiKey}`
+					`https://www.goodreads.com/author/show.xml?id=${args.id}&key=${goodreadsKey}`
 				).then(response => response.text())
 				.then(parseXML)
 			}
